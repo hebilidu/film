@@ -1,29 +1,53 @@
 {% extends 'partials/base.html' %}
+{% load static  %}
 
 {% block title %}
-Film details
+{{ action }}
 {% endblock %}
 
 {% block content %}
-<h1>{{ object.title }}</h1>
-<ul>
-    <li>
-        Director: 
-        {% for d in object.director.all %}
-        <a href = "{% url 'director' d.id  %}" class = "thumbnail">
-            <span class="smbut">{{d.first_name}} {{ d.last_name }}</span>
-        </a> 
-        {%  endfor %}
-    </li>
-    <li>Release_date: {{ object.release_date }}</li>
-    <li>Nationality: {{ object.created_in_country }}</li>
-    <li>
-        Genres: 
-        {% for c in object.category.all %}
-        <a href = "{% url 'category' c.id  %}" class = "thumbnail">
-            <span class="smbut">{{c.name}}</span>
-        </a>
-        {%  endfor %}
-    </li>
-</ul>
+
+<div class="container">
+    <div class="left">
+        {% if object.url %}
+            <img src="{{ object.url }}" width="300rem" alt="{{ f.title }}">
+        {% else %}
+            <img src="{% static 'img/generic.jpg' %}"  width="300rem" alt="Default poster">
+        {% endif %}
+    </div>
+    <div class="right">
+        <h1>{{ object.title }}</h1>
+        <ul>
+            <li>
+                Director: 
+                {% for d in object.director.all %}
+                <a href = "{% url 'director' d.id  %}" class = "thumbnail">
+                    <span class="smbut">{{d.first_name}} {{ d.last_name }}</span>
+                </a> 
+                {%  endfor %}
+            </li>
+            <li>Release_date: {{ object.release_date }}</li>
+            <li>Nationality: {{ object.created_in_country }}</li>
+            <li>
+                Genres: 
+                {% for c in object.category.all %}
+                <a href = "{% url 'category' c.id  %}" class = "thumbnail">
+                    <span class="smbut">{{c.name}}</span>
+                </a>
+                {%  endfor %}
+            </li>
+        </ul>
+        {% if action == 'Delete Film' %}
+        <form method="post">{% csrf_token %}
+            <p>Are you sure you want to delete "{{ object.title }}"?</p>
+            <input class="btn btn-danger" type="submit" value="Confirm">
+        </form>
+        {% elif user.is_staff %}
+        <a href="{% url 'deletefilm' object.id  %}" class="btn btn-danger btn-sm">Delete</a>
+        {% endif %}
+    </div>
+</div>
+
+
+
 {% endblock %}

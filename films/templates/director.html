@@ -16,4 +16,13 @@ Director - {{ object.first_name }} {{ object.last_name }}
     {% endfor %}
     </ul>
 
+{% if action == 'Delete Director' %}
+    <form method="post">{% csrf_token %}
+        <p>Are you sure you want to delete "{{ object.title }}"?</p>
+        <input type="submit" value="Confirm">
+    </form>
+{% elif user.is_staff %}
+    <a href="{% url 'deletedirector' object.id  %}" class="btn btn-danger btn-sm">Delete</a>  
+{% endif %}
+
 {% endblock %}

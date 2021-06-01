@@ -1,0 +1,47 @@
+body {
+    background-color: black;
+    color: white;
+}
+.main {
+    padding: 1em;
+} 
+
+.mainf {
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card {
+    width: 15rem;
+    margin-right: 0.8rem; 
+    margin-bottom: 0.8rem;
+    color:black;
+}
+
+.smbut {
+    background-color: lightgrey;
+    border-radius: 0.7em;
+    padding: 0.2em;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn {
+    align-self: flex-end;
+}
+
+.card-bot {
+    display: flex;
+    justify-content: space-evenly;
+}

@@ -1,15 +1,37 @@
-from django.shortcuts import redirect, render, get_object_or_404
 from django.views import generic
-from .models import Country, Category, Director, Film
-from .forms import DirectorModelForm, FilmModelForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect, render, get_object_or_404
+from .models import Country, Category, Director, Film
+from .forms import DirectorModelForm, FilmModelForm
 
 
-class FilmListView(generic.ListView):
+# class SuccessMessageMixin:
+#     """ Add a success message on successful form submission. """
+#     success_message = ''
+
+#     def form_valid(self, form):
+#         response = super().form_valid(form)
+#         success_message = self.get_success_message(form.cleaned_data)
+#         if success_message:
+#             messages.success(self.request, success_message)
+#         return response
+
+#     def get_success_message(self, cleaned_data):
+#         return self.success_message % cleaned_data
+
+
+class FilmListView(LoginRequiredMixin, generic.ListView):
     model = Film
     template_name = 'homepage.html'
     context_object_name = 'films' # by default we can use: object_list
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['action'] = 'List Films'
+        return context
 
 # def listFilms(request):
 #     films = Film.objects.all()
@@ -52,11 +74,21 @@ class CategoryDetailView(generic.DetailView):
     fields = '__all__'
     template_name = 'category.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['action'] = 'List Categories'
+        return context
+
 
 class DirectorDetailView(generic.DetailView):
     model = Director
     fields = '__all__'
     template_name = 'director.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['action'] = 'View Director Details'
+        return context
 
 
 class DirectorUpdateView(generic.UpdateView):
@@ -75,11 +107,12 @@ class DirectorUpdateView(generic.UpdateView):
         return context 
 
 
-class DirectorDeleteView(generic.DeleteView):
+class DirectorDeleteView(SuccessMessageMixin, generic.DeleteView):
     model = Director
     fields = '__all__'
     template_name = 'director.html'
     success_url = reverse_lazy('homepage')
+    success_message = "Director deleted successfully"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -91,6 +124,15 @@ class FilmDetailView(generic.DetailView):
     model = Film
     fields = '__all__'
     template_name = 'film.html'
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(Film, id = id_)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['action'] = 'View Film Details'
+        return context
 
 
 class FilmUpdateView(generic.UpdateView):
@@ -109,13 +151,16 @@ class FilmUpdateView(generic.UpdateView):
         return context
 
 
-
-
-class FilmDeleteView(generic.DeleteView):
+class FilmDeleteView(SuccessMessageMixin, generic.DeleteView):
     model = Film
     fields = '__all__'
-    template_name = 'addpage.html'
+    template_name = 'film.html'
     success_url = reverse_lazy('homepage')
+    success_message = "Film deleted successfully"
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(Film, id = id_)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

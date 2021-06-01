@@ -1,7 +1,7 @@
 {% extends 'partials/base.html'%}
 
 {% block content  %}
-<h1>Login to IMDI</h1>
+<h1>Login to IMDI or <a href="{% url 'signup' %}">Sign Up !</a></h1>
 <form method="POST">
     {% csrf_token  %}
     {{  form  }}

@@ -10,25 +10,30 @@
             <a class="nav-link" href="{% url 'homepage' %}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Welcome</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="{% url 'adddirector' %}">Add a director</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'addfilm' %}">Add a film</a>
           </li>
-
-          {% if user.is_authenticated %}
-          <li><a href="{% url 'logout' %}">Logout</a></li>
-          {% else %}
-          <li><a href="{% url 'login' %}">Login</a></li>
-          {% endif %}
-        
         </ul>
+
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Hello, {{ user.username }}</a>
+          </li>
+          <li class="nav-item"> 
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
+        </ul>
+        {% else %}
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"> 
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+        </ul>
+        {% endif %}
+
       </div>
     </div>
   </nav>
