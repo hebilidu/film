@@ -7,15 +7,27 @@
 <div class="container">
 {% for f in  films %}
 
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 15rem; margin-right: 0.8rem; margin-bottom: 0.8rem ;">
+        <img src="{{ f.url }}" class="card-img-top" alt="{{ f.title  }}">
         <div class="card-body">
         <h5 class="card-title">{{ f.title  }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">Director: 
-            {% for d in f.directors.all %}{{ d.last_name }} {%  endfor %}</h6>
+            {% for d in f.director.all %}
+            <a href = "{% url 'director' d.id  %}" class = "thumbnail">
+                <span class="smbut">{{d.first_name}} {{ d.last_name }}</span>
+            </a> 
+            {%  endfor %}
+        </h6>
+        <p class="card-text">{{ f.created_in_country  }}</p>
         <p class="card-text">Release date: {{ f.release_date  }}</p>
-        <p class="card-text">Category: {% for c in f.categories.all %}{{ c.name }} {%  endfor %}</p>
-        <p class="card-text">Country: {{ f.created_in_country  }}</p>
-        <a href="#" class="btn btn-primary">Modify film</a>
+        <p class="card-text">
+            {% for c in f.category.all %}
+            <a href = "{% url 'category' c.id  %}" class = "thumbnail">
+                <span class="smbut">{{c.name}}</span>
+            </a>
+            {%  endfor %}
+        </p>
+        <a href="{% url 'updatefilm' f.id  %}" class="btn btn-primary btn-sm">Edit</a>
         </div>
     </div>
 

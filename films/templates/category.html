@@ -1,0 +1,19 @@
+{% extends 'partials/base.html' %} 
+
+{% block title%}
+Category - {{ object.name }}
+{% endblock %} 
+
+{% block content %}
+
+    <h1>Films attached to {{ object.name }}</h1> 
+
+    <ul>
+    {% for f in object.films.all %}
+        <li>
+            <a href = "{% url 'film' f.id  %}" class = "thumbnail">{{ f.title }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}

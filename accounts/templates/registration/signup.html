@@ -1,0 +1,10 @@
+{% extends 'partials/base.html'%}
+
+{% block content  %}
+<h1>Signup to IMDI</h1>
+<form method="POST">
+    {% csrf_token  %}
+    {{  form  }}
+    <button>Signup</button>
+</form>
+{% endblock %}

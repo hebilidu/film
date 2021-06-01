@@ -1,0 +1,29 @@
+{% extends 'partials/base.html' %}
+
+{% block title %}
+Film details
+{% endblock %}
+
+{% block content %}
+<h1>{{ object.title }}</h1>
+<ul>
+    <li>
+        Director: 
+        {% for d in object.director.all %}
+        <a href = "{% url 'director' d.id  %}" class = "thumbnail">
+            <span class="smbut">{{d.first_name}} {{ d.last_name }}</span>
+        </a> 
+        {%  endfor %}
+    </li>
+    <li>Release_date: {{ object.release_date }}</li>
+    <li>Nationality: {{ object.created_in_country }}</li>
+    <li>
+        Genres: 
+        {% for c in object.category.all %}
+        <a href = "{% url 'category' c.id  %}" class = "thumbnail">
+            <span class="smbut">{{c.name}}</span>
+        </a>
+        {%  endfor %}
+    </li>
+</ul>
+{% endblock %}
