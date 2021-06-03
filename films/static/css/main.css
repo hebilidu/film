@@ -44,4 +44,5 @@ body {
 .card-bot {
     display: flex;
     justify-content: space-evenly;
+    font-size: 0.5em;
 }

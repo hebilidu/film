@@ -1,5 +1,6 @@
 {%   extends 'partials/base.html' %}
 {% load static  %}
+{% load ratings %}
 
 {% block title %}Homepage{% endblock %}
 
@@ -32,7 +33,8 @@
         <ul>
             <li class="card-text">Origin: {{ f.created_in_country }}</li>
             <li class="card-text">Release date: {{ f.release_date }}</li>
-        </ul> 
+        </ul>
+        {% ratings f %}
         <div class="card-bot">
             <a href="{% url 'updatefilm' f.id  %}" class="btn btn-primary btn-sm">Edit</a>
             {% if user.is_staff %}

@@ -118,3 +118,4 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+films/migrations/0008_film_poster.py

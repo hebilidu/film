@@ -10,7 +10,7 @@
 {% block content  %}
 
 <div class="mainf">
-    <form method="POST" class="containerf col-6">
+    <form method="POST" class="containerf col-6" enctype="multipart/form-data">
         {% csrf_token %}
         
         {{ form|bootstrap }}

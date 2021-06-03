@@ -1,5 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load static  %}
+{% load ratings %}
 
 {% block title %}
 {{ action }}
@@ -37,6 +38,7 @@
                 {%  endfor %}
             </li>
         </ul>
+        {% ratings object %}
         {% if action == 'Delete Film' %}
         <form method="post">{% csrf_token %}
             <p>Are you sure you want to delete "{{ object.title }}"?</p>
