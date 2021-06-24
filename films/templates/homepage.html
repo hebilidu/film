@@ -13,8 +13,6 @@
         <a href = "{% url 'film' f.id  %}">
         {% if f.url %}
             <img src="{{ f.url  }}" class="card-img-top" alt="{{ f.title  }}">
-        {% else %}
-            <img src="{% static 'img/generic.jpg' %}" class="card-img-top" alt="Default poster">
         {% endif %}
         </a>
         <div class="card-body">
