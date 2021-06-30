@@ -34,7 +34,7 @@ class Film(models.Model):
     category = models.ManyToManyField(Category, related_name = 'films', blank = True)
     director = models.ManyToManyField(Director, related_name = 'films', blank =True)
     url = models.URLField(null = True, blank = True)
-    poster = models.ImageField(upload_to='posters/', null = True, blank = True) # will go to the media folder
+    # poster = models.ImageField(upload_to='posters/', null = True, blank = True) # will go to the media folder
 
     def __str__(self):
         return self.title
